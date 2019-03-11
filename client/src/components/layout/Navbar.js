@@ -10,7 +10,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-import '../../styles/layout/styleNavbar.sass'
 
 
 const useStyles = makeStyles({
@@ -28,7 +27,6 @@ const useStyles = makeStyles({
 
 
 const Navbar = () => {
-
 
   const classes = useStyles();
   const [ auth ] = React.useState(true);
@@ -50,6 +48,7 @@ const Navbar = () => {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Е-Портфоліо
             </Typography>
+            <Link to="/all-users">Всі Користувачі</Link>
             {auth && (
                 <div>
                   <IconButton

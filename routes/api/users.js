@@ -5,12 +5,14 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
 
+
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
-// Load User model
+// Load User and UserInfo models
 const User = require("../../models/User");
+const UserInfo = require("../../models/UserInfo");
 
 // @route POST api/users/register
 // @desc Register user
@@ -105,5 +107,88 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+//save in db info about user portfolio
+router.post('/create-portfolio', (req, res) => {
+  UserInfo.findOne({
+    email: req.body.email
+  })
+      .then(user => {
+        if(!user) {
+          const {
+            userId, firstName, lastName, middleName,
+            email, employment, position, bidSize,
+            subsection, department, academicStatus, degree
+          } = req.body;
+
+          const dataInfo = {
+            id: userId,
+            firstName: firstName,
+            lastName: lastName,
+            middleName: middleName,
+            email: email,
+            employment: employment,
+            position: position,
+            bidSize: bidSize,
+            subsection: subsection,
+            department: department,
+            academicStatus: academicStatus,
+            degree: degree
+          };
+
+          UserInfo.create(dataInfo, (err, res) => console.log(res));
+          res.send()
+
+        } else {
+          let err = { error: 'Portfolio yet created' };
+          res.json(err)
+        }
+      })
+});
+
+//show info about user
+router.get('/review-portfolio', (req, res) => {
+  UserInfo.findOne({
+    id: req.query.userId
+  })
+      .then( user => {
+        console.log(user);
+        res.send(user)
+      })
+});
+
+//show all users on display
+router.get('/all-users', (req, res) => {
+    const options = {
+        page: 1,
+        limit: 3
+    };
+    UserInfo.paginate({}, options, function(err, result) {
+        // result.docs
+        // result.total
+        // result.limit - 10
+        // result.page - 3
+        // result.pages
+        res.send(result)
+    });
+});
+
+
+//delete all Users from schema User and UserInfo without frontend support
+router.post('/delete', (req, res) => {
+  User.remove({}, function(err, result){
+    if(err) return console.log(err);
+
+    console.log(result);
+  });
+
+  UserInfo.remove({}, function(err, result){
+    if(err) return console.log(err);
+
+    console.log(result);
+  });
+});
+
+
 
 module.exports = router;

@@ -14,10 +14,12 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
-import CreatePortfolio from "./components/dashboard/CreatePortfolio";
+import CreatePortfolio from "./containers/dashboard/CreatePortfolioContainer";
 import ReviewPortfolio from "./components/dashboard/ReviewPortfolio";
+import AllUserContainer from "./containers/allUser/AllUserContainer";
+import AllUserSelect from "./components/allUsers/AllUserSelect";
 
-import "./App.css";
+import "./styles/mainStyle.sass";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -54,6 +56,8 @@ class App extends Component {
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
                   <PrivateRoute exact path="/create-portfolio" component={CreatePortfolio} />
                   <PrivateRoute exact path="/review-portfolio" component={ReviewPortfolio} />
+                  <Route exact path="/all-users" component={AllUserContainer} />
+                  <Route exact path="/all-users/:id" component={AllUserSelect} />
                 </Switch>
               </div>
             </div>

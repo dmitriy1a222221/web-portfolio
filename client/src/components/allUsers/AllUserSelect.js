@@ -13,9 +13,6 @@ class ReviewPortfolio extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.auth.user);
-        const { id } = this.props.auth.user;
-        this.props.getDataPortfolio(id);
 
         (function() {
             let elems = document.querySelectorAll('.collapsible');
@@ -28,6 +25,11 @@ class ReviewPortfolio extends Component {
     }
 
     render() {
+        const { match: {params}, allUser } = this.props;
+        const currentUser = allUser.filter(item => item.id === params.id);
+        console.log(currentUser)
+        const { firstName, lastName, middleName } = currentUser[0]
+
         return (
             <div className="userPortfolio-wrap container card">
                 <div className="row user-info">
@@ -44,7 +46,7 @@ class ReviewPortfolio extends Component {
                         </div>
                         <div className="col s12 m9 l10 xl10">
                             <div className="col s12 m12 l12">
-                                <h1 className='user-name'> Морзе Наталія Вікторівна </h1>
+                                <h1 className='user-name'> {`${lastName} ${firstName} ${middleName}`} </h1>
                                 <p> (807 балів за 2017 рік). </p>
                             </div>
                             <div className="list-group col s12 m12 l6">
@@ -172,27 +174,27 @@ class ReviewPortfolio extends Component {
                                 <div className="collapsible-body">
                                     <table className="responsive-table striped highlight">
                                         <thead>
-                                            <tr>
-                                                <th width="1%"><i className="material-icons"></i></th>
-                                                <th>Бібліографічні посилання</th>
-                                                <th>h-індекс</th>
-                                                <th>i10-індекс</th>
-                                                <th>Дата оновлення</th>
-                                                <th></th>
-                                            </tr>
+                                        <tr>
+                                            <th width="1%"><i className="material-icons"></i></th>
+                                            <th>Бібліографічні посилання</th>
+                                            <th>h-індекс</th>
+                                            <th>i10-індекс</th>
+                                            <th>Дата оновлення</th>
+                                            <th></th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td id="scholar_references">1535</td>
-                                                <td id="scholar_hindex">18</td>
-                                                <td id="scholar_i10_index">36</td>
-                                                <td> 2019.01.25 09:21:48</td>
-                                                <td><a
-                                                    href="https://scholar.google.com.ua/citations?user=b18TCTYAAAAJ&amp;hl=uk"
-                                                    target="_blank" className="table-action"> Перейти на сторінку <i
-                                                    className="material-icons">link</i> </a></td>
-                                            </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td id="scholar_references">1535</td>
+                                            <td id="scholar_hindex">18</td>
+                                            <td id="scholar_i10_index">36</td>
+                                            <td> 2019.01.25 09:21:48</td>
+                                            <td><a
+                                                href="https://scholar.google.com.ua/citations?user=b18TCTYAAAAJ&amp;hl=uk"
+                                                target="_blank" className="table-action"> Перейти на сторінку <i
+                                                className="material-icons">link</i> </a></td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -340,28 +342,28 @@ class ReviewPortfolio extends Component {
                                 <div className="collapsible-body">
                                     <table className="responsive-table striped highlight">
                                         <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Назва дослідно-експериментальної роботи</th>
-                                                <th>База (навчальний заклад)</th>
-                                                <th>Вид участі</th>
-                                                <th>Документ, що засвідчує</th>
-                                                <th>Період реалізації</th>
-                                            </tr>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Назва дослідно-експериментальної роботи</th>
+                                            <th>База (навчальний заклад)</th>
+                                            <th>Вид участі</th>
+                                            <th>Документ, що засвідчує</th>
+                                            <th>Період реалізації</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Модель Столичного центру відкритої освіти в умовах розвитку
-                                                    інформаційного суспільства
-                                                </td>
-                                                <td>СЗШ № 81</td>
-                                                <td>Науковий керівник</td>
-                                                <td><a
-                                                    href="http://rg.kubg.edu.ua/data/dynamicdb/research_experimental_work/1/Reestr.pdf"
-                                                    target="_blank" className="file-pdf"> Reestr.pdf </a></td>
-                                                <td>2014-2021</td>
-                                            </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Модель Столичного центру відкритої освіти в умовах розвитку
+                                                інформаційного суспільства
+                                            </td>
+                                            <td>СЗШ № 81</td>
+                                            <td>Науковий керівник</td>
+                                            <td><a
+                                                href="http://rg.kubg.edu.ua/data/dynamicdb/research_experimental_work/1/Reestr.pdf"
+                                                target="_blank" className="file-pdf"> Reestr.pdf </a></td>
+                                            <td>2014-2021</td>
+                                        </tr>
                                         <tr>
                                             <td>136</td>
                                             <td>«Розробка та впровадження електронних освітніх ресурсів у процесі
@@ -851,16 +853,15 @@ class ReviewPortfolio extends Component {
     }
 }
 
-ReviewPortfolio.propTypes = {
-    getDataPortfolio: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-};
+// ReviewPortfolio.propTypes = {
+//     getDataPortfolio: PropTypes.func.isRequired,
+//     auth: PropTypes.object.isRequired
+// };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    allUser: state.allUser.users,
 });
 
 export default connect(
-    mapStateToProps,
-    { getDataPortfolio }
+    mapStateToProps
 )(ReviewPortfolio);

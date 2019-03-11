@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
-import '../../styles/dashboard/styleDashboard.sass'
 
 class Dashboard extends Component {
   onLogoutClick = e => {
@@ -14,6 +13,7 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
+    console.log(user)
 
     return (
       <div className="container card dash-wrap">

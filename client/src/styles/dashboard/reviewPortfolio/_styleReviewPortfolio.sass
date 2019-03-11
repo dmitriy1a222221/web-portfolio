@@ -48,6 +48,41 @@
     margin: 0
     box-shadow: none
 
+    h3
+        position: relative
+        margin-left: 30px !important
+
+        &::before
+            content: ''
+            display: inline-block
+            width: 13px
+            height: 1px
+            background: #337ab7
+            -webkit-transform: rotate(0deg)
+            transform: rotate(0deg)
+            -webkit-transition: 250ms all
+            transition: .5s all
+            position: absolute
+            top: 25px
+            left: -25px
+
+        &::after
+            content: ""
+            display: inline-block
+            width: 13px
+            height: 1px
+            background: #337ab7
+            transform: rotate(90deg)
+            transition: .5s all
+            position: absolute
+            top: 25px
+            left: -25px
+.collapsible h3._select::before
+    transform: rotate(180deg) !important
+
+.collapsible h3._select::after
+    transform: rotate(360deg) !important
+
 .collapsible-header
     white-space: nowrap
     line-height: 0

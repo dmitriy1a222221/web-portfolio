@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
 
-import '../../styles/auth/styleRegister.sass'
-import '../../styles/commonStyles.sass'
 
 class Register extends Component {
   constructor() {
